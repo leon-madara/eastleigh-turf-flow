@@ -2,41 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Eastleigh Turf Grass Design System - All colors MUST be HSL */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Nature-inspired color palette */
+    --background: 30 12% 97%;
+    --foreground: 20 14% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 20 14% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 20 14% 11%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Rich grass green primary */
+    --primary: 90 45% 25%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 90 45% 20%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Earth tone secondary */
+    --secondary: 25 20% 85%;
+    --secondary-foreground: 20 14% 11%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Warm muted tones */
+    --muted: 30 10% 92%;
+    --muted-foreground: 25 8% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Fresh lime accent */
+    --accent: 75 65% 55%;
+    --accent-foreground: 20 14% 11%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 8% 88%;
+    --input: 30 8% 88%;
+    --ring: 90 45% 25%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Custom turf grass colors */
+    --grass-dark: 85 40% 15%;
+    --grass-medium: 90 45% 25%;
+    --grass-light: 75 65% 55%;
+    --earth-brown: 25 30% 35%;
+    --earth-light: 25 20% 85%;
+    
+    /* Gradients */
+    --gradient-grass: linear-gradient(135deg, hsl(var(--grass-medium)), hsl(var(--grass-light)));
+    --gradient-earth: linear-gradient(135deg, hsl(var(--earth-brown)), hsl(var(--earth-light)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--grass-dark) / 0.95), hsl(var(--grass-medium) / 0.85));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px hsl(var(--grass-medium) / 0.1);
+    --shadow-card: 0 8px 30px hsl(var(--grass-medium) / 0.15);
+    --shadow-floating: 0 10px 40px hsl(var(--grass-medium) / 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +81,34 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode with earthy tones */
+    --background: 20 20% 8%;
+    --foreground: 30 12% 97%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 20 15% 12%;
+    --card-foreground: 30 12% 97%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 20 15% 12%;
+    --popover-foreground: 30 12% 97%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 75 65% 55%;
+    --primary-foreground: 20 14% 11%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 25 15% 20%;
+    --secondary-foreground: 30 12% 97%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 25 10% 15%;
+    --muted-foreground: 30 8% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 90 45% 45%;
+    --accent-foreground: 20 14% 11%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 25 8% 25%;
+    --input: 25 8% 25%;
+    --ring: 75 65% 55%;
   }
 }
 
@@ -100,6 +118,45 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* Custom classes for turf grass website */
+  .floating-header {
+    @apply backdrop-blur-[30px] bg-background/80 shadow-[var(--shadow-floating)] transition-[var(--transition-smooth)];
+  }
+
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .grass-gradient {
+    background: var(--gradient-grass);
+  }
+
+  .earth-gradient {
+    background: var(--gradient-earth);
+  }
+
+  .card-hover {
+    @apply transition-[var(--transition-smooth)] hover:shadow-[var(--shadow-card)] hover:-translate-y-1;
+  }
+
+  .btn-bounce {
+    transition: var(--transition-bounce);
+  }
+
+  .btn-bounce:hover {
+    @apply scale-105;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .divider-handle {
+    @apply w-6 h-6 bg-primary/90 rounded-full border-4 border-white shadow-lg cursor-ew-resize absolute top-1/2 -translate-y-1/2 transition-[var(--transition-smooth)] hover:scale-110;
   }
 }
