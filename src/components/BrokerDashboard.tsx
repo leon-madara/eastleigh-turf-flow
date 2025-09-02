@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -15,7 +15,8 @@ import {
   Calculator,
   Send,
   LogOut,
-  Tag
+  Tag,
+  Wallet
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -35,8 +36,8 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
   
   const [userDetails, setUserDetails] = useState({
     name: 'John Broker',
-    phone: '+44 123 456 7890',
-    email: 'john@eastleighturf.co.uk'
+    phone: '+254 743 375 997',
+    email: 'john@eastleighturfgrass.com'
   });
 
   const [inquiryForm, setInquiryForm] = useState({
@@ -46,15 +47,27 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
     notes: ''
   });
 
+  const [brokerBalance, setBrokerBalance] = useState(() => {
+    const savedBalance = localStorage.getItem('brokerBalance');
+    return savedBalance ? parseFloat(savedBalance) : 0;
+  });
+
+  const [paymentAmount, setPaymentAmount] = useState('');
+
   const { toast } = useToast();
 
+  // Save balance to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('brokerBalance', brokerBalance.toString());
+  }, [brokerBalance]);
+
   const products = [
-    { id: '1', name: 'Premium Luxury 35mm', price: 25 },
-    { id: '2', name: 'Family Perfect 30mm', price: 22 },
-    { id: '3', name: 'Commercial Pro 25mm', price: 18 },
-    { id: '4', name: 'Budget Friendly 20mm', price: 15 },
-    { id: '5', name: 'Sports Elite 40mm', price: 30 },
-    { id: '6', name: 'Eco Natural 28mm', price: 20 }
+    { id: '1', name: 'Premium Luxury 35mm', price: 1500 },
+    { id: '2', name: 'Family Perfect 30mm', price: 1300 },
+    { id: '3', name: 'Commercial Pro 25mm', price: 1100 },
+    { id: '4', name: 'Budget Friendly 20mm', price: 1000 },
+    { id: '5', name: 'Sports Elite 40mm', price: 1600 },
+    { id: '6', name: 'Eco Natural 28mm', price: 1200 }
   ];
 
   const discounts = [
@@ -62,6 +75,56 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
     { id: 'daily', name: 'Discount of the Day', value: 10 },
     { id: 'coupon', name: 'Special Coupon', value: 20 }
   ];
+
+  const formatCurrency = (amount: number) => {
+    return `KES ${amount.toLocaleString()}`;
+  };
+
+  const formatNumber = (value: string) => {
+    // Remove any non-numeric characters except decimal point
+    const numericValue = value.replace(/[^\d.]/g, '');
+    const number = parseFloat(numericValue);
+    if (isNaN(number)) return '';
+    return number.toLocaleString();
+  };
+
+  const handlePaymentAmountChange = (value: string) => {
+    const numericValue = value.replace(/[^\d]/g, '');
+    if (numericValue) {
+      const formatted = parseFloat(numericValue).toLocaleString();
+      setPaymentAmount(formatted);
+    } else {
+      setPaymentAmount('');
+    }
+  };
+
+  const handlePayment = () => {
+    const payment = parseFloat(paymentAmount.replace(/,/g, ''));
+    if (payment > 0) {
+      setBrokerBalance(prev => prev + payment);
+      toast({
+        title: "Payment Added!",
+        description: `KES ${payment.toLocaleString()} added to your balance.`
+      });
+      setPaymentAmount('');
+    }
+  };
+
+  const handleDeductFromBalance = (amount: number) => {
+    if (amount <= brokerBalance) {
+      setBrokerBalance(prev => prev - amount);
+      toast({
+        title: "Balance Updated!",
+        description: `KES ${amount.toLocaleString()} deducted from your balance.`
+      });
+    } else {
+      toast({
+        title: "Insufficient Balance",
+        description: "You don't have enough balance for this transaction.",
+        variant: "destructive"
+      });
+    }
+  };
 
   const calculateTotal = (product: string, sqMeters: string, discount: string) => {
     const selectedProduct = products.find(p => p.id === product);
@@ -101,9 +164,9 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
 New ${type} from Broker Dashboard:
 Product: ${selectedProduct?.name}
 Area: ${orderForm.sqMeters} m²
-Subtotal: £${subtotal.toFixed(2)}
-${selectedDiscount ? `Discount (${selectedDiscount.name}): -£${discountAmount.toFixed(2)}` : ''}
-Total: £${total.toFixed(2)}
+Subtotal: KES ${subtotal.toLocaleString()}
+${selectedDiscount ? `Discount (${selectedDiscount.name}): -KES ${discountAmount.toLocaleString()}` : ''}
+Total: KES ${total.toLocaleString()}
 Customer Phone: ${orderForm.customerPhone}
 Location: ${orderForm.customerLocation}
     `.trim();
@@ -141,7 +204,7 @@ Location: ${orderForm.customerLocation}
 Broker Price Inquiry:
 Product: ${selectedProduct?.name}
 Area: ${inquiryForm.sqMeters} m²
-Suggested Price: £${inquiryForm.suggestedPrice}
+Suggested Price: KES ${parseFloat(inquiryForm.suggestedPrice).toLocaleString()}
 Notes: ${inquiryForm.notes}
     `.trim();
 
@@ -175,10 +238,22 @@ Notes: ${inquiryForm.notes}
             <h1 className="text-3xl font-bold text-primary">Broker Dashboard</h1>
             <p className="text-muted-foreground">Welcome back, {userDetails.name}</p>
           </div>
-          <Button variant="outline" onClick={onLogout} className="flex items-center space-x-2">
-            <LogOut className="w-4 h-4" />
-            <span>Logout</span>
-          </Button>
+          <div className="flex items-center gap-4">
+            {/* Balance Display */}
+            <div className="bg-primary/10 px-4 py-2 rounded-lg">
+              <div className="flex items-center gap-2">
+                <Wallet className="w-4 h-4 text-primary" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Balance</p>
+                  <p className="font-bold text-primary">{formatCurrency(brokerBalance)}</p>
+                </div>
+              </div>
+            </div>
+            <Button variant="outline" onClick={onLogout} className="flex items-center space-x-2">
+              <LogOut className="w-4 h-4" />
+              <span>Logout</span>
+            </Button>
+          </div>
         </div>
 
         <Tabs defaultValue="orders" className="space-y-6">
@@ -221,13 +296,13 @@ Notes: ${inquiryForm.notes}
                         <SelectTrigger>
                           <SelectValue placeholder="Select product" />
                         </SelectTrigger>
-                        <SelectContent>
-                          {products.map(product => (
-                            <SelectItem key={product.id} value={product.id}>
-                              {product.name} - £{product.price}/m²
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
+                         <SelectContent>
+                           {products.map(product => (
+                             <SelectItem key={product.id} value={product.id}>
+                               {product.name} - KES {product.price.toLocaleString()}/m²
+                             </SelectItem>
+                           ))}
+                         </SelectContent>
                       </Select>
                     </div>
 
@@ -280,25 +355,64 @@ Notes: ${inquiryForm.notes}
                       />
                     </div>
 
-                    {/* Calculation Results */}
-                    {orderForm.product && orderForm.sqMeters && (
-                      <div className="bg-muted p-4 rounded-lg space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Subtotal:</span>
-                          <span>£{subtotal.toFixed(2)}</span>
-                        </div>
-                        {discountAmount > 0 && (
-                          <div className="flex justify-between text-sm text-accent">
-                            <span>Discount:</span>
-                            <span>-£{discountAmount.toFixed(2)}</span>
-                          </div>
-                        )}
-                        <div className="flex justify-between text-lg font-bold text-primary border-t pt-2">
-                          <span>Total:</span>
-                          <span>£{total.toFixed(2)}</span>
-                        </div>
-                      </div>
-                    )}
+                     {/* Calculation Results */}
+                     {orderForm.product && orderForm.sqMeters && (
+                       <div className="bg-muted p-4 rounded-lg space-y-2">
+                         <div className="flex justify-between text-sm">
+                           <span>Subtotal:</span>
+                           <span>{formatCurrency(subtotal)}</span>
+                         </div>
+                         {discountAmount > 0 && (
+                           <div className="flex justify-between text-sm text-accent">
+                             <span>Discount:</span>
+                             <span>-{formatCurrency(discountAmount)}</span>
+                           </div>
+                         )}
+                         <div className="flex justify-between text-lg font-bold text-primary border-t pt-2">
+                           <span>Total:</span>
+                           <span>{formatCurrency(total)}</span>
+                         </div>
+                         
+                         {/* Payment Section */}
+                         <div className="border-t pt-4 space-y-3">
+                           <div className="flex gap-2">
+                             <Input
+                               placeholder="Payment amount"
+                               value={paymentAmount}
+                               onChange={(e) => handlePaymentAmountChange(e.target.value)}
+                               className="flex-1"
+                             />
+                             <Button onClick={handlePayment} variant="outline" size="sm">
+                               Add Payment
+                             </Button>
+                           </div>
+                           
+                           {total > 0 && (
+                             <div className="space-y-2">
+                               <div className="flex justify-between text-sm">
+                                 <span>Your Balance:</span>
+                                 <span className="font-medium">{formatCurrency(brokerBalance)}</span>
+                               </div>
+                               <div className="flex justify-between text-sm">
+                                 <span>Remaining Balance:</span>
+                                 <span className={`font-medium ${brokerBalance >= total ? 'text-green-600' : 'text-red-600'}`}>
+                                   {formatCurrency(Math.max(0, brokerBalance - total))}
+                                 </span>
+                               </div>
+                               <Button 
+                                 onClick={() => handleDeductFromBalance(total)}
+                                 variant="secondary" 
+                                 size="sm" 
+                                 className="w-full"
+                                 disabled={brokerBalance < total}
+                               >
+                                 {brokerBalance >= total ? 'Pay from Balance' : 'Insufficient Balance'}
+                               </Button>
+                             </div>
+                           )}
+                         </div>
+                       </div>
+                     )}
                   </div>
                 </div>
 
@@ -337,13 +451,13 @@ Notes: ${inquiryForm.notes}
                         <SelectTrigger>
                           <SelectValue placeholder="Select product" />
                         </SelectTrigger>
-                        <SelectContent>
-                          {products.map(product => (
-                            <SelectItem key={product.id} value={product.id}>
-                              {product.name} - £{product.price}/m²
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
+                         <SelectContent>
+                           {products.map(product => (
+                             <SelectItem key={product.id} value={product.id}>
+                               {product.name} - KES {product.price.toLocaleString()}/m²
+                             </SelectItem>
+                           ))}
+                         </SelectContent>
                       </Select>
                     </div>
 
@@ -389,23 +503,23 @@ Notes: ${inquiryForm.notes}
                       </Select>
                     </div>
 
-                    {/* Balance Calculation */}
-                    {orderForm.product && orderForm.sqMeters && orderForm.amount && (
-                      <div className="bg-muted p-4 rounded-lg space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Total Amount:</span>
-                          <span>£{total.toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span>Amount Paid:</span>
-                          <span>£{parseFloat(orderForm.amount).toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between text-lg font-bold text-primary border-t pt-2">
-                          <span>Balance:</span>
-                          <span>£{Math.max(0, total - parseFloat(orderForm.amount)).toFixed(2)}</span>
-                        </div>
-                      </div>
-                    )}
+                     {/* Balance Calculation */}
+                     {orderForm.product && orderForm.sqMeters && orderForm.amount && (
+                       <div className="bg-muted p-4 rounded-lg space-y-2">
+                         <div className="flex justify-between text-sm">
+                           <span>Total Amount:</span>
+                           <span>{formatCurrency(total)}</span>
+                         </div>
+                         <div className="flex justify-between text-sm">
+                           <span>Amount Paid:</span>
+                           <span>{formatCurrency(parseFloat(orderForm.amount))}</span>
+                         </div>
+                         <div className="flex justify-between text-lg font-bold text-primary border-t pt-2">
+                           <span>Balance:</span>
+                           <span>{formatCurrency(Math.max(0, total - parseFloat(orderForm.amount)))}</span>
+                         </div>
+                       </div>
+                     )}
                   </div>
                 </div>
 
@@ -443,13 +557,13 @@ Notes: ${inquiryForm.notes}
                         <SelectTrigger>
                           <SelectValue placeholder="Select product" />
                         </SelectTrigger>
-                        <SelectContent>
-                          {products.map(product => (
-                            <SelectItem key={product.id} value={product.id}>
-                              {product.name} - £{product.price}/m²
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
+                         <SelectContent>
+                           {products.map(product => (
+                             <SelectItem key={product.id} value={product.id}>
+                               {product.name} - KES {product.price.toLocaleString()}/m²
+                             </SelectItem>
+                           ))}
+                         </SelectContent>
                       </Select>
                     </div>
 

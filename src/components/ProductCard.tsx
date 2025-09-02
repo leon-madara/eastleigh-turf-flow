@@ -87,7 +87,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
         <div className="bg-muted p-3 rounded-lg">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">Price per m²:</span>
-            <span className="text-lg font-bold text-primary">£{product.pricePerSqM}</span>
+            <span className="text-lg font-bold text-primary">KES {product.pricePerSqM.toLocaleString()}</span>
           </div>
         </div>
 
@@ -136,7 +136,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
               </div>
               <div className="flex justify-between text-lg font-bold text-primary">
                 <span>Total:</span>
-                <span>£{totalPrice}</span>
+                <span>KES {totalPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
               </div>
             </div>
           )}

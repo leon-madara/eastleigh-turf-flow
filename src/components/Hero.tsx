@@ -28,6 +28,8 @@ const Hero = () => {
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
+    // Reset to center on release
+    setTimeout(() => setSliderPosition(50), 100);
   }, []);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -49,6 +51,8 @@ const Hero = () => {
 
   const handleTouchEnd = useCallback(() => {
     setIsDragging(false);
+    // Reset to center on release
+    setTimeout(() => setSliderPosition(50), 100);
   }, []);
 
   // Global event listeners

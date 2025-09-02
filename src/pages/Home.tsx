@@ -51,22 +51,22 @@ const Home = () => {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
-      location: 'Southampton',
+      name: 'James Mwangi',
+      location: 'Nairobi',
       rating: 5,
       comment: 'Absolutely thrilled with our new lawn! The transformation is incredible and the quality is outstanding.',
       product: 'Premium Luxury 35mm'
     },
     {
-      name: 'Mike Thompson',
-      location: 'Winchester',
+      name: 'Grace Wanjiku',
+      location: 'Eldoret',
       rating: 5,
       comment: 'Perfect for our garden. The kids love playing on it and it looks amazing all year round.',
       product: 'Family Perfect 30mm'
     },
     {
-      name: 'David Williams',
-      location: 'Portsmouth',
+      name: 'Peter Kipchoge',
+      location: 'Mombasa',
       rating: 5,
       comment: 'Professional installation and top-quality turf. Highly recommend Eastleigh Turf Grass!',
       product: 'Sports Elite 40mm'
