@@ -28,9 +28,31 @@ const Hero = () => {
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-    // Reset to center on release
-    setTimeout(() => setSliderPosition(50), 100);
-  }, []);
+    // Reset to center with smooth ease animation
+    setTimeout(() => {
+      const startPos = sliderPosition;
+      const targetPos = 50;
+      const duration = 800; // 0.8 seconds
+      const startTime = Date.now();
+      
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Ease-out function for smooth animation
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentPos = startPos + (targetPos - startPos) * easeOut;
+        
+        setSliderPosition(currentPos);
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      
+      requestAnimationFrame(animate);
+    }, 100);
+  }, [sliderPosition]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     setIsDragging(true);
@@ -51,9 +73,31 @@ const Hero = () => {
 
   const handleTouchEnd = useCallback(() => {
     setIsDragging(false);
-    // Reset to center on release
-    setTimeout(() => setSliderPosition(50), 100);
-  }, []);
+    // Reset to center with smooth ease animation
+    setTimeout(() => {
+      const startPos = sliderPosition;
+      const targetPos = 50;
+      const duration = 800; // 0.8 seconds
+      const startTime = Date.now();
+      
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Ease-out function for smooth animation
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentPos = startPos + (targetPos - startPos) * easeOut;
+        
+        setSliderPosition(currentPos);
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      
+      requestAnimationFrame(animate);
+    }, 100);
+  }, [sliderPosition]);
 
   // Global event listeners
   React.useEffect(() => {

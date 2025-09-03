@@ -128,6 +128,14 @@
     @apply backdrop-blur-[30px] bg-background/80 shadow-[var(--shadow-floating)] transition-[var(--transition-smooth)];
   }
 
+  .floating-header-with-bg {
+    @apply backdrop-blur-[30px] shadow-[var(--shadow-floating)] transition-[var(--transition-smooth)];
+    background: linear-gradient(135deg, hsl(var(--background) / 0.9), hsl(var(--background) / 0.7)), 
+                url('/src/assets/grass-texture-bg.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
   .hero-gradient {
     background: var(--gradient-hero);
   }
@@ -158,5 +166,94 @@
 
   .divider-handle {
     @apply w-6 h-6 bg-primary/90 rounded-full border-4 border-white shadow-lg cursor-ew-resize absolute top-1/2 -translate-y-1/2 transition-[var(--transition-smooth)] hover:scale-110;
+  }
+
+  /* Mobile Menu Styles */
+  .mobile-menu-overlay {
+    @apply fixed inset-0 z-[60] opacity-0 pointer-events-none transition-all duration-500 ease-in-out;
+    backdrop-filter: blur(30px);
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .mobile-menu-overlay.open {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  .mobile-menu-content {
+    @apply w-full h-full flex items-center justify-center;
+    transform: translateX(-100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu-overlay.open .mobile-menu-content {
+    transform: translateX(0);
+  }
+
+  .mobile-nav-link {
+    @apply text-3xl font-bold opacity-0 transition-all duration-300 hover:scale-110;
+    animation: fadeInSlide 0.5s ease-out forwards;
+  }
+
+  .mobile-nav-link.active {
+    @apply text-primary;
+  }
+
+  /* Hamburger Icon Animation */
+  .hamburger-icon {
+    @apply w-5 h-5 flex flex-col justify-center items-center cursor-pointer;
+  }
+
+  .hamburger-icon span {
+    @apply block w-5 h-0.5 bg-current transition-all duration-300 ease-in-out;
+  }
+
+  .hamburger-icon span:nth-child(1) {
+    transform-origin: left center;
+    margin-bottom: 4px;
+  }
+
+  .hamburger-icon span:nth-child(2) {
+    transform-origin: left center;
+    margin-bottom: 4px;
+  }
+
+  .hamburger-icon span:nth-child(3) {
+    transform-origin: left center;
+  }
+
+  .hamburger-icon.open span:nth-child(1) {
+    transform: rotate(45deg) translate(1px, -1px);
+  }
+
+  .hamburger-icon.open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  .hamburger-icon.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(1px, 1px);
+  }
+
+  /* Broker Login Modal */
+  .broker-login-modal {
+    @apply backdrop-blur-[10px];
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .broker-login-header {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)));
+    backdrop-filter: blur(10px);
+  }
+
+  /* Animations */
+  @keyframes fadeInSlide {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

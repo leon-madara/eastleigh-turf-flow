@@ -52,16 +52,18 @@ const BrokerLogin = ({ isOpen, onClose, onLogin }: BrokerLoginProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2">
-            <User className="w-5 h-5 text-primary" />
-            <span>Broker Login</span>
-          </DialogTitle>
-        </DialogHeader>
+      <DialogContent className="sm:max-w-md p-0 overflow-hidden broker-login-modal">
+        <div className="broker-login-header">
+          <DialogHeader className="p-6 pb-4">
+            <DialogTitle className="flex items-center space-x-2 text-white">
+              <User className="w-5 h-5" />
+              <span>Broker Login</span>
+            </DialogTitle>
+          </DialogHeader>
+        </div>
 
         <Card className="border-0 shadow-none">
-          <CardContent className="p-0">
+          <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="username">Username</Label>
