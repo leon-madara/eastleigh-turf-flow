@@ -120,17 +120,17 @@ const About = () => {
           </div>
 
           {/* Story Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-            <div className="animate-fade-in">
+          <div className="mb-20">
+            <div className="animate-fade-in mb-12">
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-              <div className="space-y-4 text-muted-foreground">
+              <div className="space-y-4 text-muted-foreground max-w-4xl">
                 <p>
                   Founded in 2008 by James Mitchell, Eastleigh Turf Grass began as a small family business 
                   with a simple mission: to provide beautiful, low-maintenance lawns that families could 
                   enjoy year-round.
                 </p>
                 <p>
-                  What started as a local service has grown into Hampshire's most trusted artificial turf 
+                  What started as a local service has grown into Kenya's most trusted artificial turf 
                   provider. We've completed over 2,000 installations, from small residential gardens to 
                   large commercial projects, always maintaining our commitment to quality and customer satisfaction.
                 </p>
@@ -147,7 +147,7 @@ const About = () => {
               </div>
             </div>
             
-            <div className="relative animate-slide-up">
+            <div className="relative animate-slide-up max-w-md mx-auto">
               <div className="aspect-square bg-gradient-to-br from-grass-light to-grass-medium rounded-2xl overflow-hidden">
                 <div className="w-full h-full bg-black/20 flex items-center justify-center">
                   <div className="text-center text-white">

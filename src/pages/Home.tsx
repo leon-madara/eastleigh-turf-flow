@@ -25,27 +25,27 @@ const Home = () => {
   const featuredProducts = [
     {
       id: '1',
-      name: 'Premium Luxury 35mm',
-      price: 25,
+      name: 'Luxury Turf 30mm',
+      price: 1300,
       image: '/api/placeholder/300/200',
       description: 'Ultra-soft luxury turf perfect for high-end residential spaces',
-      features: ['35mm pile height', 'UV resistant', '10-year warranty']
+      features: ['30mm pile height', 'UV resistant', '10-year warranty']
     },
     {
       id: '2',
-      name: 'Family Perfect 30mm',
-      price: 22,
+      name: 'Sports Turf 20mm',
+      price: 1100,
       image: '/api/placeholder/300/200',
-      description: 'Durable and safe turf ideal for families with children and pets',
-      features: ['30mm pile height', 'Pet-friendly', 'Easy maintenance']
+      description: 'Durable and safe turf ideal for sports and playgrounds',
+      features: ['20mm pile height', 'Enhanced durability', 'Weather resistant']
     },
     {
       id: '3',
-      name: 'Sports Elite 40mm',
-      price: 30,
+      name: 'Professional Grade 40mm',
+      price: 1600,
       image: '/api/placeholder/300/200',
       description: 'Professional-grade turf designed for sports applications',
-      features: ['40mm pile height', 'High durability', 'FIFA approved']
+      features: ['40mm pile height', 'Maximum durability', 'Championship quality']
     }
   ];
 
@@ -110,7 +110,7 @@ const Home = () => {
                     </div>
                     <div className="absolute bottom-4 left-4 right-4">
                       <CardTitle className="text-white text-xl font-bold mb-2">{product.name}</CardTitle>
-                      <div className="text-accent font-bold text-2xl">£{product.price}/m²</div>
+                      <div className="text-accent font-bold text-2xl">KES {product.price.toLocaleString()}/m²</div>
                     </div>
                   </div>
                 </CardHeader>
@@ -158,8 +158,8 @@ const Home = () => {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Truck className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Free Delivery</h3>
-              <p className="text-sm text-muted-foreground">On orders over £500</p>
+               <h3 className="font-semibold mb-2">Free Delivery</h3>
+               <p className="text-sm text-muted-foreground">On orders over KES 50,000</p>
             </div>
             
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>

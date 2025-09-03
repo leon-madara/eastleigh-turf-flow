@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Edit, Tag, Trash2 } from 'lucide-react';
+import CartEditDropdown from '@/components/CartEditDropdown';
 import { useToast } from '@/hooks/use-toast';
 
 interface CartItem {
@@ -139,12 +140,23 @@ const Products = () => {
     });
   };
 
-  const handleEditCartItem = (itemId: string) => {
-    // For simplicity, we'll just remove and let user re-add with new dimensions
-    handleRemoveFromCart(itemId);
+  const handleEditCartItem = (itemId: string, newWidth: number, newLength: number) => {
+    setCartItems(prev => 
+      prev.map(item => 
+        item.id === itemId 
+          ? {
+              ...item,
+              width: newWidth,
+              length: newLength,
+              area: newWidth * newLength,
+              totalPrice: newWidth * newLength * item.pricePerSqM
+            }
+          : item
+      )
+    );
     toast({
-      title: "Item Removed for Editing",
-      description: "Please add the item again with new dimensions."
+      title: "Item Updated",
+      description: "Cart item dimensions have been updated successfully."
     });
   };
 
@@ -234,36 +246,32 @@ const Products = () => {
                 {/* Cart Items */}
                 <div className="space-y-3 mb-4">
                   {cartItems.map((item, index) => (
-                    <div key={item.id} className="flex items-center justify-between p-3 bg-background rounded-lg border">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <Badge variant="outline" className="text-xs">#{index + 1}</Badge>
-                          <h4 className="font-medium text-sm">{item.name}</h4>
-                        </div>
+                  <div key={item.id} className="md:flex md:items-center md:justify-between p-3 bg-background rounded-lg border">
+                    <div className="flex items-center gap-3 md:flex-1">
+                      <Badge variant="outline" className="text-xs">#{index + 1}</Badge>
+                      <div className="md:flex md:items-center md:gap-4 md:flex-1">
+                        <h4 className="font-medium text-sm">{item.name}</h4>
                         <p className="text-xs text-muted-foreground">
                           {item.width}m × {item.length}m = {item.area.toFixed(1)}m²
                         </p>
                         <p className="text-sm font-semibold">KES {item.totalPrice.toLocaleString()}</p>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={() => handleEditCartItem(item.id)}
-                          className="h-8 w-8 p-0"
-                        >
-                          <Edit className="w-3 h-3" />
-                        </Button>
-                        <Button 
-                          variant="destructive" 
-                          size="sm" 
-                          onClick={() => handleRemoveFromCart(item.id)}
-                          className="h-8 w-8 p-0"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
-                      </div>
                     </div>
+                    <div className="flex items-center gap-2 mt-2 md:mt-0">
+                      <CartEditDropdown 
+                        item={item}
+                        onSave={handleEditCartItem}
+                      />
+                      <Button 
+                        variant="destructive" 
+                        size="sm" 
+                        onClick={() => handleRemoveFromCart(item.id)}
+                        className="h-8 w-8 p-0"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  </div>
                   ))}
                 </div>
 

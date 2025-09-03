@@ -119,14 +119,14 @@ const Header = ({ cartCount, onBrokerLogin }: HeaderProps) => {
             <Button
               variant="ghost"
               size="sm"
-              className="md:hidden"
+              className="md:hidden relative z-[60]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <div className={`hamburger-icon ${isMobileMenuOpen ? 'open' : ''}`}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
+              {isMobileMenuOpen ? (
+                <X className={`w-5 h-5 ${isDashboard ? 'text-black' : 'text-black'}`} />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </Button>
           </div>
         </div>
