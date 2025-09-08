@@ -27,7 +27,7 @@ const Home = () => {
       id: '1',
       name: 'Luxury Turf 30mm',
       price: 1300,
-      image: '/api/placeholder/300/200',
+      image: '/src/assets/Products/luxury-turf-30mm.png',
       description: 'Ultra-soft luxury turf perfect for high-end residential spaces',
       features: ['30mm pile height', 'UV resistant', '10-year warranty']
     },
@@ -35,7 +35,7 @@ const Home = () => {
       id: '2',
       name: 'Sports Turf 20mm',
       price: 1100,
-      image: '/api/placeholder/300/200',
+      image: '/src/assets/Products/sports-turf-20mm.png',
       description: 'Durable and safe turf ideal for sports and playgrounds',
       features: ['20mm pile height', 'Enhanced durability', 'Weather resistant']
     },
@@ -43,7 +43,7 @@ const Home = () => {
       id: '3',
       name: 'Professional Grade 40mm',
       price: 1600,
-      image: '/api/placeholder/300/200',
+      image: '/src/assets/Products/professional-grade-40mm.png',
       description: 'Professional-grade turf designed for sports applications',
       features: ['40mm pile height', 'Maximum durability', 'Championship quality']
     }
@@ -79,12 +79,13 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header 
-        cartCount={cartCount} 
-        onBrokerLogin={() => setIsLoginOpen(true)} 
-      />
-      
-      <Hero />
+      <div className="relative lg:h-screen">
+        <Header
+          cartCount={cartCount}
+          onBrokerLogin={() => setIsLoginOpen(true)}
+        />
+        <Hero />
+      </div>
 
       {/* Product Showcase Section */}
       <section className="py-20 bg-background">
@@ -94,7 +95,7 @@ const Home = () => {
               Our Featured <span className="text-gradient">Products</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Discover our range of premium artificial turf designed for every need, 
+              Discover our range of premium artificial turf designed for every need,
               from luxurious residential lawns to professional sports facilities.
             </p>
           </div>
@@ -153,15 +154,15 @@ const Home = () => {
               <h3 className="font-semibold mb-2">10 Year Warranty</h3>
               <p className="text-sm text-muted-foreground">Long-lasting quality guaranteed</p>
             </div>
-            
+
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Truck className="w-8 h-8 text-primary" />
               </div>
-               <h3 className="font-semibold mb-2">Free Delivery</h3>
-               <p className="text-sm text-muted-foreground">On orders over KES 50,000</p>
+              <h3 className="font-semibold mb-2">Free Delivery</h3>
+              <p className="text-sm text-muted-foreground">On orders over KES 50,000</p>
             </div>
-            
+
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-primary" />
@@ -169,7 +170,7 @@ const Home = () => {
               <h3 className="font-semibold mb-2">Expert Installation</h3>
               <p className="text-sm text-muted-foreground">Professional fitting service</p>
             </div>
-            
+
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Star className="w-8 h-8 text-primary" />
@@ -189,7 +190,7 @@ const Home = () => {
               What Our <span className="text-gradient">Clients Say</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Don't just take our word for it. See what our satisfied customers 
+              Don't just take our word for it. See what our satisfied customers
               have to say about their turf transformation experience.
             </p>
           </div>
@@ -206,11 +207,11 @@ const Home = () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   <p className="text-muted-foreground mb-6 italic">
                     "{testimonial.comment}"
                   </p>
-                  
+
                   <div className="border-t pt-4">
                     <div className="font-semibold">{testimonial.name}</div>
                     <div className="text-sm text-muted-foreground">{testimonial.location}</div>
@@ -227,7 +228,7 @@ const Home = () => {
 
       <Footer />
 
-      <BrokerLogin 
+      <BrokerLogin
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
         onLogin={() => setIsBrokerLoggedIn(true)}

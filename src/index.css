@@ -48,7 +48,7 @@
     --grass-light: 75 65% 55%;
     --earth-brown: 25 30% 35%;
     --earth-light: 25 20% 85%;
-    
+
     /* Gradients */
     --gradient-grass: linear-gradient(135deg, hsl(var(--grass-medium)), hsl(var(--grass-light)));
     --gradient-earth: linear-gradient(135deg, hsl(var(--earth-brown)), hsl(var(--earth-light)));
@@ -123,17 +123,16 @@
 }
 
 @layer components {
+
   /* Custom classes for turf grass website */
   .floating-header {
     @apply backdrop-blur-[30px] bg-background/80 shadow-[var(--shadow-floating)] transition-[var(--transition-smooth)];
   }
 
   .floating-header-with-bg {
-    @apply backdrop-blur-[30px] shadow-[var(--shadow-floating)] transition-[var(--transition-smooth)];
-    background: linear-gradient(135deg, hsl(var(--background) / 0.9), hsl(var(--background) / 0.7)), 
-                url('/src/assets/grass-texture-bg.jpg');
-    background-size: cover;
-    background-position: center;
+    @apply backdrop-blur-[20px] shadow-[var(--shadow-floating)] transition-[var(--transition-smooth)];
+    background: transparent;
+    border: 0.5px solid rgba(255, 255, 255, 0.3);
   }
 
   .hero-gradient {
@@ -251,6 +250,7 @@
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);

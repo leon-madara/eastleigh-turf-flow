@@ -1,8 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import heroBeforeImage from '@/assets/hero-before.jpg';
-import heroAfterImage from '@/assets/hero-after.jpg';
+import heroBeforeImage from '@/assets/hero-before.png';
+import heroAfterImage from '@/assets/hero-after.png';
 
 const Hero = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -34,22 +34,22 @@ const Hero = () => {
       const targetPos = 50;
       const duration = 800; // 0.8 seconds
       const startTime = Date.now();
-      
+
       const animate = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Ease-out function for smooth animation
         const easeOut = 1 - Math.pow(1 - progress, 3);
         const currentPos = startPos + (targetPos - startPos) * easeOut;
-        
+
         setSliderPosition(currentPos);
-        
+
         if (progress < 1) {
           requestAnimationFrame(animate);
         }
       };
-      
+
       requestAnimationFrame(animate);
     }, 100);
   }, [sliderPosition]);
@@ -79,22 +79,22 @@ const Hero = () => {
       const targetPos = 50;
       const duration = 800; // 0.8 seconds
       const startTime = Date.now();
-      
+
       const animate = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Ease-out function for smooth animation
         const easeOut = 1 - Math.pow(1 - progress, 3);
         const currentPos = startPos + (targetPos - startPos) * easeOut;
-        
+
         setSliderPosition(currentPos);
-        
+
         if (progress < 1) {
           requestAnimationFrame(animate);
         }
       };
-      
+
       requestAnimationFrame(animate);
     }, 100);
   }, [sliderPosition]);
@@ -117,9 +117,9 @@ const Hero = () => {
   }, [isDragging, handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen lg:absolute lg:inset-0 lg:h-screen flex items-center justify-center overflow-hidden">
       {/* Hero Content */}
-      <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+            <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto pt-20">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
           Transform Your Space with
           <span className="block text-gradient mt-2">Premium Turf Grass</span>
@@ -129,24 +129,24 @@ const Hero = () => {
         </p>
 
         {/* Before/After Image Slider */}
-        <div 
+        <div
           ref={containerRef}
           className="relative w-full max-w-4xl mx-auto mb-12 rounded-2xl overflow-hidden shadow-2xl cursor-ew-resize select-none"
           style={{ aspectRatio: '2/1' }}
         >
           {/* Before Image */}
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ 
+            style={{
               backgroundImage: `url(${heroBeforeImage})`,
               clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`
             }}
           />
-          
+
           {/* After Image */}
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ 
+            style={{
               backgroundImage: `url(${heroAfterImage})`,
               clipPath: `inset(0 0 0 ${sliderPosition}%)`
             }}
@@ -161,7 +161,7 @@ const Hero = () => {
           </div>
 
           {/* Divider Line */}
-          <div 
+          <div
             className="absolute top-0 bottom-0 w-0.5 bg-white/80 shadow-lg"
             style={{ left: `${sliderPosition}%` }}
           />
@@ -178,18 +178,18 @@ const Hero = () => {
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-bounce-in">
           <Link to="/products">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="btn-bounce grass-gradient text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl"
             >
               View Products
             </Button>
           </Link>
-          
+
           <Link to="/contact">
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="btn-bounce bg-white/10 border-white/30 text-white hover:bg-white/20 font-semibold px-8 py-3 rounded-xl backdrop-blur-sm"
             >
               Get Quote

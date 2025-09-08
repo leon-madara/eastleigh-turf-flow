@@ -6,13 +6,13 @@ import BrokerDashboard from '@/components/BrokerDashboard';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Users, 
-  Award, 
-  Clock, 
-  MapPin, 
-  Leaf, 
-  Shield, 
+import {
+  Users,
+  Award,
+  Clock,
+  MapPin,
+  Leaf,
+  Shield,
   Truck,
   CheckCircle,
   Target,
@@ -85,12 +85,12 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header 
-        cartCount={cartCount} 
-        onBrokerLogin={() => setIsLoginOpen(true)} 
+      <Header
+        cartCount={cartCount}
+        onBrokerLogin={() => setIsLoginOpen(true)}
       />
-      
-      <main className="pt-32 pb-20">
+
+            <main className="pt-40 pb-20">
         <div className="container mx-auto px-4">
           {/* Hero Section */}
           <div className="text-center mb-20">
@@ -98,8 +98,8 @@ const About = () => {
               About <span className="text-gradient">Eastleigh Turf Grass</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              For over 15 years, we've been transforming outdoor spaces across Hampshire with 
-              premium artificial turf solutions. From residential gardens to commercial installations, 
+              For over 15 years, we've been transforming outdoor spaces across Hampshire with
+              premium artificial turf solutions. From residential gardens to commercial installations,
               we bring expertise, quality, and passion to every project.
             </p>
           </div>
@@ -125,18 +125,18 @@ const About = () => {
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground max-w-4xl">
                 <p>
-                  Founded in 2008 by James Mitchell, Eastleigh Turf Grass began as a small family business 
-                  with a simple mission: to provide beautiful, low-maintenance lawns that families could 
+                  Founded in 2008 by James Mitchell, Eastleigh Turf Grass began as a small family business
+                  with a simple mission: to provide beautiful, low-maintenance lawns that families could
                   enjoy year-round.
                 </p>
                 <p>
-                  What started as a local service has grown into Kenya's most trusted artificial turf 
-                  provider. We've completed over 2,000 installations, from small residential gardens to 
+                  What started as a local service has grown into Kenya's most trusted artificial turf
+                  provider. We've completed over 2,000 installations, from small residential gardens to
                   large commercial projects, always maintaining our commitment to quality and customer satisfaction.
                 </p>
                 <p>
-                  Today, we're proud to be at the forefront of artificial turf technology, offering 
-                  eco-friendly solutions that save water, eliminate chemical treatments, and provide 
+                  Today, we're proud to be at the forefront of artificial turf technology, offering
+                  eco-friendly solutions that save water, eliminate chemical treatments, and provide
                   stunning results that last for years.
                 </p>
               </div>
@@ -146,7 +146,7 @@ const About = () => {
                 </Link>
               </div>
             </div>
-            
+
             <div className="relative animate-slide-up max-w-md mx-auto">
               <div className="aspect-square bg-gradient-to-br from-grass-light to-grass-medium rounded-2xl overflow-hidden">
                 <div className="w-full h-full bg-black/20 flex items-center justify-center">
@@ -239,7 +239,7 @@ const About = () => {
                   <p className="text-sm text-muted-foreground">Only the finest artificial turf from trusted manufacturers</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-1" />
                 <div>
@@ -247,7 +247,7 @@ const About = () => {
                   <p className="text-sm text-muted-foreground">Certified installers with 15+ years experience</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-1" />
                 <div>
@@ -255,7 +255,7 @@ const About = () => {
                   <p className="text-sm text-muted-foreground">Comprehensive coverage for peace of mind</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-1" />
                 <div>
@@ -263,7 +263,7 @@ const About = () => {
                   <p className="text-sm text-muted-foreground">Expert advice tailored to your specific needs</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-1" />
                 <div>
@@ -271,7 +271,7 @@ const About = () => {
                   <p className="text-sm text-muted-foreground">Supporting our community for over 15 years</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-1" />
                 <div>
@@ -294,7 +294,7 @@ const About = () => {
 
       <Footer />
 
-      <BrokerLogin 
+      <BrokerLogin
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
         onLogin={() => setIsBrokerLoggedIn(true)}

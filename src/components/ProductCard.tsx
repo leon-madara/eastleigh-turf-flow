@@ -41,7 +41,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   const handleAddToCart = () => {
     const w = parseFloat(width);
     const l = parseFloat(length);
-    
+
     if (w > 0 && l > 0) {
       setIsCalculating(true);
       setTimeout(() => {
@@ -57,7 +57,27 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   return (
     <Card className="card-hover group overflow-hidden">
       <CardHeader className="p-0">
-        <div className="relative h-48 bg-gradient-to-br from-grass-light to-grass-medium overflow-hidden">
+        <div className="relative h-48 overflow-hidden">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              // Fallback to gradient if image fails to load
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              target.nextElementSibling?.classList.remove('hidden');
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-grass-light to-grass-medium hidden">
+            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <CardTitle className="text-white text-lg font-semibold">{product.name}</CardTitle>
+              <Badge variant="secondary" className="mt-1">
+                {product.thickness}mm thick
+              </Badge>
+            </div>
+          </div>
           <div className="absolute inset-0 bg-black/20" />
           <div className="absolute bottom-4 left-4 right-4">
             <CardTitle className="text-white text-lg font-semibold">{product.name}</CardTitle>
@@ -67,10 +87,10 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
           </div>
         </div>
       </CardHeader>
-      
+
       <CardContent className="p-6 space-y-4">
         <p className="text-sm text-muted-foreground">{product.description}</p>
-        
+
         {/* Use Cases */}
         <div>
           <h4 className="font-medium text-sm mb-2">Perfect for:</h4>
@@ -97,7 +117,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
             <Calculator className="w-4 h-4 text-primary" />
             <span>Customize Dimensions</span>
           </div>
-          
+
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label htmlFor={`width-${product.id}`} className="text-xs">Width (m)</Label>
@@ -144,7 +164,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       </CardContent>
 
       <CardFooter className="p-6 pt-0">
-        <Button 
+        <Button
           onClick={handleAddToCart}
           disabled={!width || !length || parseFloat(width) <= 0 || parseFloat(length) <= 0 || isCalculating}
           className="w-full btn-bounce"

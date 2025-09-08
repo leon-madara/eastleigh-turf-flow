@@ -9,11 +9,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock, 
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
   Send,
   MessageSquare,
   Calculator,
@@ -47,7 +47,7 @@ const Contact = () => {
         title: "Quote Request Sent!",
         description: "We'll contact you within 24 hours with a detailed quote.",
       });
-      
+
       // Reset form
       setFormData({
         name: '',
@@ -70,7 +70,7 @@ const Contact = () => {
   const estimatePrice = () => {
     const area = parseFloat(formData.area);
     if (!area) return null;
-    
+
     const basePrice = formData.projectType === 'commercial' ? 1100 : 1300;
     const total = area * basePrice;
     return total;
@@ -115,12 +115,12 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header 
-        cartCount={cartCount} 
-        onBrokerLogin={() => setIsLoginOpen(true)} 
+      <Header
+        cartCount={cartCount}
+        onBrokerLogin={() => setIsLoginOpen(true)}
       />
-      
-      <main className="pt-32 pb-20">
+
+      <main className="pt-28 pb-20">
         <div className="container mx-auto px-4">
           {/* Page Header */}
           <div className="text-center mb-16">
@@ -128,7 +128,7 @@ const Contact = () => {
               Get Your <span className="text-gradient">Free Quote</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Ready to transform your outdoor space? Contact us today for a free consultation 
+              Ready to transform your outdoor space? Contact us today for a free consultation
               and personalized quote. Our experts are here to help bring your vision to life.
             </p>
           </div>
@@ -252,8 +252,8 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={isSubmitting}
                   className="w-full btn-bounce"
                   size="lg"
@@ -269,7 +269,7 @@ const Contact = () => {
                 </Button>
 
                 <p className="text-xs text-muted-foreground text-center">
-                  By submitting this form, you agree to be contacted by our team. 
+                  By submitting this form, you agree to be contacted by our team.
                   We respect your privacy and never share your information.
                 </p>
               </form>
@@ -392,7 +392,7 @@ const Contact = () => {
                 <CardContent className="p-6">
                   <h3 className="font-semibold mb-3">How long does installation take?</h3>
                   <p className="text-sm text-muted-foreground">
-                    Most residential projects are completed within 1-2 days, depending on the area size 
+                    Most residential projects are completed within 1-2 days, depending on the area size
                     and ground conditions. We'll provide a detailed timeline during your consultation.
                   </p>
                 </CardContent>
@@ -402,7 +402,7 @@ const Contact = () => {
                 <CardContent className="p-6">
                   <h3 className="font-semibold mb-3">Do you offer financing options?</h3>
                   <p className="text-sm text-muted-foreground">
-                    Yes, we offer flexible payment plans to make your project more affordable. 
+                    Yes, we offer flexible payment plans to make your project more affordable.
                     Contact us to discuss financing options that work for your budget.
                   </p>
                 </CardContent>
@@ -412,7 +412,7 @@ const Contact = () => {
                 <CardContent className="p-6">
                   <h3 className="font-semibold mb-3">What's included in the warranty?</h3>
                   <p className="text-sm text-muted-foreground">
-                    Our 10-year warranty covers fading, wear, and manufacturing defects. 
+                    Our 10-year warranty covers fading, wear, and manufacturing defects.
                     We also provide a 2-year workmanship guarantee on our installation.
                   </p>
                 </CardContent>
@@ -422,7 +422,7 @@ const Contact = () => {
                 <CardContent className="p-6">
                   <h3 className="font-semibold mb-3">Can I see samples before deciding?</h3>
                   <p className="text-sm text-muted-foreground">
-                    Absolutely! We bring samples to every consultation so you can feel the quality 
+                    Absolutely! We bring samples to every consultation so you can feel the quality
                     and see how different products look in your space.
                   </p>
                 </CardContent>
@@ -434,7 +434,7 @@ const Contact = () => {
 
       <Footer />
 
-      <BrokerLogin 
+      <BrokerLogin
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
         onLogin={() => setIsBrokerLoggedIn(true)}
