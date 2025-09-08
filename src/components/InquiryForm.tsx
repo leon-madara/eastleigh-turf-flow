@@ -41,9 +41,9 @@ export function InquiryForm({ products, onSubmit }: InquiryFormProps) {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div className="space-y-2">
                         <Label>Inquiry Type</Label>
-                        <Select onValueChange={(value) => setValue('type', value as InquiryType)}>
+                        <Select value={inquiryType} onValueChange={(value) => setValue('type', value as InquiryType)}>
                             <SelectTrigger>
-                                <SelectValue />
+                                <SelectValue placeholder="Select inquiry type" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="PRICE">Price Inquiry</SelectItem>
@@ -55,11 +55,9 @@ export function InquiryForm({ products, onSubmit }: InquiryFormProps) {
 
                     <div className="space-y-2">
                         <Label>Product</Label>
-                        <Select onValueChange={(value) => setValue('productId', value)}>
+                        <Select value={selectedProduct} onValueChange={(value) => setValue('productId', value)}>
                             <SelectTrigger>
-                                <SelectValue>
-                                    {selectedProduct ? products.find(p => p.id === selectedProduct)?.name : undefined}
-                                </SelectValue>
+                                <SelectValue placeholder="Select a product" />
                             </SelectTrigger>
                             <SelectContent>
                                 {products.map(product => (
