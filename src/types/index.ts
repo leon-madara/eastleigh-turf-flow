@@ -36,6 +36,7 @@ export interface Inquiry {
     quantity?: number;
     message: string;
     suggestedPrice?: number;
+    bargainPrice?: number;
     response?: string;
     status: InquiryStatus;
     createdAt: Date;
@@ -47,5 +48,6 @@ export interface InquiryFormData {
     productId: string;
     quantity?: number;
     suggestedPrice?: number;
+    bargainPrice?: number;
     message: string;
 }

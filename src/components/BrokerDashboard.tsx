@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTheme } from '@/components/ThemeProvider';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -55,7 +57,7 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
   const [preOrders, setPreOrders] = useState([]);
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
 
-  const products = [
+  const products = useMemo(() => ([
     { id: 'commercial-pro-25mm', name: 'Commercial Pro 25mm', price: 1100, description: 'KES 1,100/m²' },
     { id: 'enduraturf', name: 'EnduraTurf', price: 950, description: 'KES 950/m²' },
     { id: 'flexturf', name: 'FlexTurf', price: 1200, description: 'KES 1,200/m²' },
@@ -63,7 +65,7 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
     { id: 'profitgrass', name: 'ProfitGrass', price: 1050, description: 'KES 1,050/m²' },
     { id: 'ultraturf', name: 'UltraTurf', price: 1400, description: 'KES 1,400/m²' },
     { id: 'velvetgreen', name: 'VelvetGreen', price: 1150, description: 'KES 1,150/m²' }
-  ];
+  ]), []);
 
   const discounts = [
     { name: 'No Discount', value: 0 },
@@ -661,14 +663,155 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
           </TabsContent>
 
           <TabsContent value="profile" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Profile</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-500 dark:text-gray-400">Profile information will be displayed here.</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-8">
+              {/* Profile Basics */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Profile</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="fullName">Full Name</Label>
+                      <Input id="fullName" placeholder="Enter full name" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="whatsapp">WhatsApp Phone</Label>
+                      <Input id="whatsapp" placeholder="e.g. 07XXXXXXXX or +2547XXXXXXX" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label htmlFor="logo">Business Logo</Label>
+                    <Input id="logo" type="file" accept="image/*" />
+                  </div>
+
+                  <div>
+                    <Label>Service Regions</Label>
+                    <div className="mt-3 grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {['Nairobi', 'Mombasa', 'Nakuru', 'Eldoret', 'Kisumu', 'Thika'].map(r => (
+                        <label key={r} className="flex items-center gap-2 text-sm">
+                          <Checkbox />
+                          <span>{r}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Payment */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Payment (MPESA)</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Label htmlFor="mpesa">MPESA Payout Number</Label>
+                  <Input id="mpesa" placeholder="e.g. 07XXXXXXXX or +2547XXXXXXX" />
+                </CardContent>
+              </Card>
+
+              {/* Notifications */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Notifications</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">WhatsApp Alerts</div>
+                      <div className="text-sm text-muted-foreground">Notify on order status changes</div>
+                    </div>
+                    <Switch />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">SMS Alerts</div>
+                      <div className="text-sm text-muted-foreground">Backup notifications if WhatsApp fails</div>
+                    </div>
+                    <Switch />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Security */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Security</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="currentPassword">Current Password</Label>
+                      <Input id="currentPassword" type="password" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="newPassword">New Password</Label>
+                      <Input id="newPassword" type="password" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="confirmPassword">Confirm Password</Label>
+                      <Input id="confirmPassword" type="password" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">Two-Factor Authentication</div>
+                      <div className="text-sm text-muted-foreground">Add an extra layer of security</div>
+                    </div>
+                    <Switch />
+                  </div>
+
+                  <div>
+                    <div className="font-medium mb-2">Active Sessions</div>
+                    <div className="rounded border p-3 text-sm text-muted-foreground">Device list placeholder</div>
+                    <Button className="mt-3" variant="outline">Sign out all devices</Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+
+
+              {/* Sales & Commission (read-only) */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Sales & Commission</CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="p-4 border rounded-lg">
+                    <div className="text-sm text-muted-foreground">Commission Rate</div>
+                    <div className="text-2xl font-bold">10%</div>
+                  </div>
+                  <div className="p-4 border rounded-lg">
+                    <div className="text-sm text-muted-foreground">This Month</div>
+                    <div className="text-2xl font-bold">KES 0</div>
+                  </div>
+                  <div className="p-4 border rounded-lg md:col-span-1">
+                    <div className="text-sm text-muted-foreground mb-2">Payout History</div>
+                    <div className="text-sm text-muted-foreground">No payouts yet</div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Support */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Support</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-wrap gap-3">
+                  <Button variant="outline" asChild>
+                    <a href="https://wa.me/254743375997" target="_blank" rel="noreferrer">Contact Admin</a>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <a href="mailto:info@eastleighturfgrass.com">Email Support</a>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <a href="#">FAQ</a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
 
@@ -681,18 +824,6 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
           >
             <Send className="mr-2 h-5 w-5" />
             Send Order via WhatsApp
-          </Button>
-          <Button
-            onClick={() => handleSendWhatsApp('STATUS', {
-              phone: '+254700000000',
-              clientName: 'Client',
-              status: 'Processing',
-              orderDetails: 'Order details here'
-            })}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg"
-          >
-            <Send className="mr-2 h-5 w-5" />
-            Send Status Update
           </Button>
         </div>
       </div>

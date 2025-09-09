@@ -18,6 +18,7 @@ export function InquiryForm({ products, onSubmit }: InquiryFormProps) {
     const inquiryType = watch('type');
     const selectedProduct = watch('productId');
     const suggestedPrice = watch('suggestedPrice');
+    const bargainPrice = watch('bargainPrice');
 
     useEffect(() => {
         // register form fields so Select-driven values are included
@@ -26,6 +27,7 @@ export function InquiryForm({ products, onSubmit }: InquiryFormProps) {
         register('quantity');
         register('suggestedPrice');
         register('message', { required: true });
+        register('bargainPrice');
     }, [register]);
 
     const selectedProductPrice = products.find(p => p.id === selectedProduct)?.price;
@@ -41,9 +43,12 @@ export function InquiryForm({ products, onSubmit }: InquiryFormProps) {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div className="space-y-2">
                         <Label>Inquiry Type</Label>
-                        <Select onValueChange={(value) => setValue('type', value as InquiryType)}>
+                        <Select
+                            value={inquiryType}
+                            onValueChange={(value) => setValue('type', value as InquiryType, { shouldValidate: true })}
+                        >
                             <SelectTrigger>
-                                <SelectValue />
+                                <SelectValue placeholder="Select Inquiry Type" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="PRICE">Price Inquiry</SelectItem>
@@ -55,11 +60,12 @@ export function InquiryForm({ products, onSubmit }: InquiryFormProps) {
 
                     <div className="space-y-2">
                         <Label>Product</Label>
-                        <Select onValueChange={(value) => setValue('productId', value)}>
+                        <Select
+                            value={selectedProduct}
+                            onValueChange={(value) => setValue('productId', value, { shouldValidate: true })}
+                        >
                             <SelectTrigger>
-                                <SelectValue>
-                                    {selectedProduct ? products.find(p => p.id === selectedProduct)?.name : undefined}
-                                </SelectValue>
+                                <SelectValue placeholder="Select Product" />
                             </SelectTrigger>
                             <SelectContent>
                                 {products.map(product => (
@@ -110,6 +116,22 @@ export function InquiryForm({ products, onSubmit }: InquiryFormProps) {
                                     Suggest 10% Off
                                 </Button>
                             </div>
+                        </div>
+                    )}
+
+                    {selectedProduct && (inquiryType === 'PRICE' || inquiryType === 'BULK_PRICING') && (
+                        <div className="space-y-2">
+                            <Label>Bargain Price (KES/m²)</Label>
+                            <Input
+                                type="number"
+                                value={bargainPrice ?? ''}
+                                onChange={(e) => setValue('bargainPrice', e.target.value === '' ? undefined : Number(e.target.value))}
+                                placeholder={
+                                    formattedCurrentPrice
+                                        ? `Current: KES ${formattedCurrentPrice}`
+                                        : 'Current: N/A'
+                                }
+                            />
                         </div>
                     )}
 

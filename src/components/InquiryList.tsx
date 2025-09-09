@@ -1,12 +1,4 @@
 import React from 'react';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Inquiry } from '@/types';
@@ -31,60 +23,56 @@ export function InquiryList({ inquiries, onStatusUpdate }: InquiryListProps) {
     };
 
     return (
-        <div className="rounded-md border">
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Product</TableHead>
-                        <TableHead>Suggested</TableHead>
-                        <TableHead>Message</TableHead>
-                        <TableHead>Response</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Actions</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {inquiries.map((inquiry) => (
-                        <TableRow key={inquiry.id}>
-                            <TableCell>{formatDate(inquiry.createdAt)}</TableCell>
-                            <TableCell>
-                                <Badge variant="outline">
-                                    {inquiry.type.replace('_', ' ')}
-                                </Badge>
-                            </TableCell>
-                            <TableCell>{inquiry.productName}</TableCell>
-                            <TableCell className="text-right">
+        <div className="space-y-3">
+            {inquiries.map((inquiry) => (
+                <div key={inquiry.id} className="p-4 border rounded-lg bg-background">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="text-sm text-muted-foreground">{formatDate(inquiry.createdAt)}</div>
+                        <Badge variant="outline">{inquiry.type.replace('_', ' ')}</Badge>
+                    </div>
+                    <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <div className="text-xs text-muted-foreground">Product</div>
+                            <div className="font-medium">{inquiry.productName}</div>
+                        </div>
+                        <div>
+                            <div className="text-xs text-muted-foreground">Suggested</div>
+                            <div className="font-medium">
                                 {inquiry.suggestedPrice !== undefined && inquiry.suggestedPrice !== null
                                     ? `KES ${inquiry.suggestedPrice.toLocaleString()}`
                                     : '-'}
-                            </TableCell>
-                            <TableCell className="max-w-[200px] truncate">
-                                {inquiry.message}
-                            </TableCell>
-                            <TableCell className="max-w-[200px] truncate">
-                                {inquiry.response || '-'}
-                            </TableCell>
-                            <TableCell>
-                                <Badge className={`${getStatusColor(inquiry.status)} text-white`}>
-                                    {inquiry.status}
-                                </Badge>
-                            </TableCell>
-                            <TableCell>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => onStatusUpdate(inquiry.id, 'CLOSED')}
-                                    disabled={inquiry.status === 'CLOSED'}
-                                >
-                                    {inquiry.status === 'PENDING' ? 'Mark Responded' : 'Close'}
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                            </div>
+                        </div>
+                        {inquiry.bargainPrice !== undefined && (
+                            <div>
+                                <div className="text-xs text-muted-foreground">Bargain</div>
+                                <div className="font-medium">KES {inquiry.bargainPrice.toLocaleString()}</div>
+                            </div>
+                        )}
+                        <div className="sm:col-span-2">
+                            <div className="text-xs text-muted-foreground">Message</div>
+                            <div className="break-words">{inquiry.message}</div>
+                        </div>
+                        {inquiry.response && (
+                            <div className="sm:col-span-2">
+                                <div className="text-xs text-muted-foreground">Response</div>
+                                <div className="break-words">{inquiry.response}</div>
+                            </div>
+                        )}
+                    </div>
+                    <div className="mt-3 flex items-center justify-between">
+                        <Badge className={`${getStatusColor(inquiry.status)} text-white`}>{inquiry.status}</Badge>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => onStatusUpdate(inquiry.id, 'CLOSED')}
+                            disabled={inquiry.status === 'CLOSED'}
+                        >
+                            {inquiry.status === 'PENDING' ? 'Mark Responded' : 'Close'}
+                        </Button>
+                    </div>
+                </div>
+            ))}
         </div>
     );
 }
