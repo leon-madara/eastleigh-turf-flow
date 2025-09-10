@@ -96,7 +96,7 @@ const Contact = () => {
       title: 'WhatsApp',
       details: '+254 743 375 997',
       description: 'Quick responses 9AM-5PM',
-      action: 'https://wa.me/254743375997'
+      action: 'https://api.whatsapp.com/send?phone=254743375997'
     }
   ];
 

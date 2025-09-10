@@ -801,7 +801,7 @@ const BrokerDashboard = ({ onLogout }: BrokerDashboardProps) => {
                 </CardHeader>
                 <CardContent className="flex flex-wrap gap-3">
                   <Button variant="outline" asChild>
-                    <a href="https://wa.me/254743375997" target="_blank" rel="noreferrer">Contact Admin</a>
+                    <a href="https://api.whatsapp.com/send?phone=254743375997" target="_blank" rel="noreferrer">Contact Admin</a>
                   </Button>
                   <Button variant="outline" asChild>
                     <a href="mailto:info@eastleighturfgrass.com">Email Support</a>

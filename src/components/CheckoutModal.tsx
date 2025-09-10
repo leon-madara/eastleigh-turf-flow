@@ -144,7 +144,7 @@ const CheckoutModal = ({ isOpen, onClose, cartItems, totalAmount, discountAmount
   };
 
   const handleSendOrder = () => {
-    const whatsappNumber = '+254743375997';
+    const whatsappNumber = '254743375997'; // Remove + for API format
     const businessName = 'Eastleigh Turf Grass';
     
     const orderItemsText = cartItems.map(item => 
@@ -176,9 +176,21 @@ ${discountAmount > 0 ? `Discount: -KES ${discountAmount.toLocaleString()}\n` : '
 Please confirm this order and provide delivery details. Thank you! 🙏`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodedMessage}`;
     
-    window.open(whatsappUrl, '_blank');
+    // Primary: Use api.whatsapp.com/send for better compatibility
+    const primaryWhatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+    
+    // Fallback: Use wa.me for older versions/iOS issues
+    const fallbackWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    
+    // Try primary method first
+    try {
+      window.open(primaryWhatsappUrl, '_blank');
+    } catch (error) {
+      // Fallback to wa.me if primary fails
+      console.log('Primary WhatsApp method failed, using fallback');
+      window.open(fallbackWhatsappUrl, '_blank');
+    }
     
     toast({
       title: "Order Sent!",

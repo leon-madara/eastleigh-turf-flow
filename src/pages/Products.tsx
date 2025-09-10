@@ -275,7 +275,7 @@ const Products = () => {
               {/* Call-to-Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
                 <a
-                  href="https://wa.me/254743375997?text=Hello!%20I'm%20interested%20in%20a%20free%20measurement%20for%20my%20project."
+                  href="https://api.whatsapp.com/send?phone=254743375997&text=Hello!%20I'm%20interested%20in%20a%20free%20measurement%20for%20my%20project."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1"
