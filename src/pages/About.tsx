@@ -61,21 +61,21 @@ const About = () => {
       role: 'Founder & CEO',
       experience: '15+ years',
       bio: 'James founded Eastleigh Turf Grass with a vision to transform outdoor spaces across Hampshire.',
-      image: '/api/placeholder/200/200'
+      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'
     },
     {
       name: 'Sarah Campbell',
       role: 'Head of Installation',
       experience: '12+ years',
       bio: 'Sarah leads our installation team, ensuring every project meets our exacting standards.',
-      image: '/api/placeholder/200/200'
+      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face'
     },
     {
       name: 'Michael Roberts',
       role: 'Customer Relations',
       experience: '8+ years',
       bio: 'Michael ensures our customers receive exceptional service from initial consultation to completion.',
-      image: '/api/placeholder/200/200'
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face'
     }
   ];
 

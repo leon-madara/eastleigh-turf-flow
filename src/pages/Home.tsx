@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Shield, Truck, Award, Quote } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import VelvetGreen from '@/assets/Products/VelvetGreen.png';
+import FlexTurf from '@/assets/Products/FlexTurf.png';
+import ProfessionalGrade from '@/assets/Products/ProfessionalGrade.png';
 
 const Home = () => {
   const [cartCount, setCartCount] = useState(0);
@@ -27,7 +30,7 @@ const Home = () => {
       id: '1',
       name: 'Luxury Turf 30mm',
       price: 1300,
-      image: '/src/assets/Products/luxury-turf-30mm.png',
+      image: VelvetGreen,
       description: 'Ultra-soft luxury turf perfect for high-end residential spaces',
       features: ['30mm pile height', 'UV resistant', '10-year warranty']
     },
@@ -35,7 +38,7 @@ const Home = () => {
       id: '2',
       name: 'Sports Turf 20mm',
       price: 1100,
-      image: '/src/assets/Products/sports-turf-20mm.png',
+      image: FlexTurf,
       description: 'Durable and safe turf ideal for sports and playgrounds',
       features: ['20mm pile height', 'Enhanced durability', 'Weather resistant']
     },
@@ -43,7 +46,7 @@ const Home = () => {
       id: '3',
       name: 'Professional Grade 40mm',
       price: 1600,
-      image: '/src/assets/Products/professional-grade-40mm.png',
+      image: ProfessionalGrade,
       description: 'Professional-grade turf designed for sports applications',
       features: ['40mm pile height', 'Maximum durability', 'Championship quality']
     }
