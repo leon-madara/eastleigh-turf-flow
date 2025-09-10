@@ -45,6 +45,21 @@ const CheckoutModal = ({ isOpen, onClose, cartItems, totalAmount, discountAmount
 
   const finalTotal = totalAmount - discountAmount;
 
+  // Check if location is within service area (Nairobi and surrounding areas)
+  const isLocationInServiceArea = (address: string) => {
+    const serviceAreas = [
+      'nairobi', 'kiambu', 'machakos', 'kajiado', 'murang\'a', 'thika', 'ruiru',
+      'kikuyu', 'limuru', 'karuri', 'kangundo', 'athiriver', 'kitengela',
+      'kiserian', 'ngong', 'rongai', 'karen', 'langata', 'westlands', 'kilimani',
+      'lavington', 'kileleshwa', 'parklands', 'eastleigh', 'embakasi', 'kasarani',
+      'ruaraka', 'kahawa', 'roysambu', 'dandora', 'kayole', 'mukuru', 'mathare',
+      'kibera', 'kawangware', 'dagoretti', 'uthiru', 'kabete', 'lower kabete'
+    ];
+    
+    const lowerAddress = address.toLowerCase();
+    return serviceAreas.some(area => lowerAddress.includes(area));
+  };
+
   const handleLocationDetect = async () => {
     setIsDetectingLocation(true);
     
@@ -53,20 +68,81 @@ const CheckoutModal = ({ isOpen, onClose, cartItems, totalAmount, discountAmount
         navigator.geolocation.getCurrentPosition(
           async (position) => {
             try {
-              // Simulate location detection (in real app, use reverse geocoding)
-              await new Promise(resolve => setTimeout(resolve, 2000));
-              setCustomerDetails(prev => ({
-                ...prev,
-                location: 'Nairobi, Kenya'
-              }));
-              toast({
-                title: "Location Detected",
-                description: "Location has been automatically detected."
-              });
+              const { latitude, longitude } = position.coords;
+              
+              // Use OpenStreetMap Nominatim API for reverse geocoding
+              const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`,
+                {
+                  headers: {
+                    'User-Agent': 'EastleighTurfGrass/1.0'
+                  }
+                }
+              );
+              
+              if (!response.ok) {
+                throw new Error('Failed to fetch location data');
+              }
+              
+              const data = await response.json();
+              
+              if (data && data.display_name) {
+                // Format the address nicely
+                let formattedAddress = '';
+                
+                if (data.address) {
+                  const addr = data.address;
+                  const parts = [];
+                  
+                  // Build address from most specific to least specific
+                  if (addr.house_number && addr.road) {
+                    parts.push(`${addr.house_number} ${addr.road}`);
+                  } else if (addr.road) {
+                    parts.push(addr.road);
+                  }
+                  
+                  if (addr.suburb || addr.neighbourhood) {
+                    parts.push(addr.suburb || addr.neighbourhood);
+                  }
+                  
+                  if (addr.city || addr.town || addr.village) {
+                    parts.push(addr.city || addr.town || addr.village);
+                  }
+                  
+                  if (addr.state || addr.county) {
+                    parts.push(addr.state || addr.county);
+                  }
+                  
+                  if (addr.country) {
+                    parts.push(addr.country);
+                  }
+                  
+                  formattedAddress = parts.join(', ');
+                } else {
+                  formattedAddress = data.display_name;
+                }
+                
+                setCustomerDetails(prev => ({
+                  ...prev,
+                  location: formattedAddress
+                }));
+                
+                // Check if location is in service area
+                const inServiceArea = isLocationInServiceArea(formattedAddress);
+                
+                toast({
+                  title: "Location Detected",
+                  description: `Found: ${formattedAddress}${inServiceArea ? '' : ' (Outside service area)'}`,
+                  variant: inServiceArea ? 'default' : 'destructive'
+                });
+              } else {
+                throw new Error('No address data found');
+              }
             } catch (error) {
+              console.error('Reverse geocoding error:', error);
               toast({
                 title: "Location Error",
-                description: "Failed to detect location. Please enter manually.",
+                description: "Failed to get address from coordinates. Please enter manually.",
                 variant: "destructive"
               });
             } finally {
@@ -75,19 +151,45 @@ const CheckoutModal = ({ isOpen, onClose, cartItems, totalAmount, discountAmount
           },
           (error) => {
             setIsDetectingLocation(false);
+            let errorMessage = "Please enter your location manually.";
+            
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                errorMessage = "Location access denied. Please enable location permissions or enter manually.";
+                break;
+              case error.POSITION_UNAVAILABLE:
+                errorMessage = "Location unavailable. Please enter your location manually.";
+                break;
+              case error.TIMEOUT:
+                errorMessage = "Location request timed out. Please enter your location manually.";
+                break;
+            }
+            
             toast({
               title: "Location Access Denied",
-              description: "Please enter your location manually.",
+              description: errorMessage,
               variant: "destructive"
             });
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 300000 // 5 minutes
           }
         );
+      } else {
+        setIsDetectingLocation(false);
+        toast({
+          title: "Location Not Supported",
+          description: "Your browser doesn't support location detection. Please enter manually.",
+          variant: "destructive"
+        });
       }
     } catch (error) {
       setIsDetectingLocation(false);
       toast({
         title: "Location Error",
-        description: "Location detection not supported. Please enter manually.",
+        description: "Location detection failed. Please enter your location manually.",
         variant: "destructive"
       });
     }
