@@ -11,12 +11,6 @@ import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Edit, Tag, Trash2, Ruler, CheckCircle, MapPin, Phone } from 'lucide-react';
 import CartEditDropdown from '@/components/CartEditDropdown';
 import { useToast } from '@/hooks/use-toast';
-import EnduraTurf from '@/assets/Products/EnduraTurf.png';
-import FlexTurf from '@/assets/Products/FlexTurf.png';
-import VelvetGreen from '@/assets/Products/VelvetGreen.png';
-import ProfessionalGrade from '@/assets/Products/ProfessionalGrade.png';
-import ProfitGrass from '@/assets/Products/ProfitGrass.png';
-import UltraTurf from '@/assets/Products/UltraTurf.png';
 
 interface CartItem {
   id: string;
@@ -55,7 +49,7 @@ const Products = () => {
       name: 'Premium Turf 15mm',
       thickness: '15',
       pricePerSqM: 1000,
-      image: EnduraTurf,
+      image: '/Products/EnduraTurf.png',
       useCases: ['Residential', 'Light Traffic', 'Decorative'],
       description: 'Premium 15mm artificial turf featuring natural appearance, UV resistance, and easy maintenance. Includes advanced drainage system and soft texture, perfect for residential areas with light traffic and decorative applications.'
     },
@@ -64,7 +58,7 @@ const Products = () => {
       name: 'Sports Turf 20mm',
       thickness: '20',
       pricePerSqM: 1100,
-      image: FlexTurf,
+      image: '/Products/FlexTurf.png',
       useCases: ['Sports', 'Playgrounds', 'Schools'],
       description: 'Professional 20mm sports turf with enhanced durability and superior bounce. Features weather resistance and high traffic tolerance, making it ideal for sports facilities, playgrounds, and school environments.'
     },
@@ -73,7 +67,7 @@ const Products = () => {
       name: 'Luxury Turf 30mm',
       thickness: '30',
       pricePerSqM: 1300,
-      image: VelvetGreen,
+      image: '/Products/VelvetGreen.png',
       useCases: ['Premium Residential', 'Commercial', 'Hospitality'],
       description: 'Luxury 30mm artificial turf offering premium quality with realistic feel and long-lasting performance. Features excellent drainage and fade resistance, perfect for premium residential, commercial, and hospitality applications.'
     },
@@ -82,7 +76,7 @@ const Products = () => {
       name: 'Elite Turf 35mm',
       thickness: '35',
       pricePerSqM: 1500,
-      image: UltraTurf,
+      image: '/Products/UltraTurf.png',
       useCases: ['High-end Commercial', 'Sports Facilities', 'Luxury Homes'],
       description: 'Elite 35mm artificial turf delivering maximum comfort and professional grade performance. Built with heavy duty construction and advanced technology, offering superior aesthetics for high-end commercial and luxury home applications.'
     },
@@ -91,7 +85,7 @@ const Products = () => {
       name: 'Professional Grade 40mm',
       thickness: '40',
       pricePerSqM: 1600,
-      image: ProfessionalGrade,
+      image: '/Products/ProfessionalGrade.png',
       useCases: ['Professional Sports', 'Commercial', 'Premium'],
       description: 'Professional grade 40mm turf featuring maximum durability and superior performance. Weather proof construction with championship quality standards, designed for professional sports venues and premium commercial applications.'
     },
@@ -100,7 +94,7 @@ const Products = () => {
       name: 'Championship Turf 45mm',
       thickness: '45',
       pricePerSqM: 1800,
-      image: ProfitGrass,
+      image: '/Products/ProfitGrass.png',
       useCases: ['Championship', 'Premium Sports', 'Elite Facilities'],
       description: 'Championship 45mm artificial turf representing the ultimate in performance and quality. Features elite grade construction with professional standards and premium durability, designed for championship venues and elite sports facilities.'
     }
