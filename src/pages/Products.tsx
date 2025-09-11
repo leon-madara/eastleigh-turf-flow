@@ -287,15 +287,35 @@ const Products = () => {
                     Message on WhatsApp
                   </Button>
                 </a>
-                <a
-                  href="tel:+254743375997"
-                  className="flex-1"
-                >
-                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white h-12 text-lg font-semibold">
-                    <Phone className="w-5 h-5 mr-2" />
-                    Call Our Fundi
-                  </Button>
-                </a>
+                <div className="flex-1 space-y-2">
+                  <a
+                    href="tel:+254743375997"
+                    className="block"
+                  >
+                    <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white h-10 text-sm font-semibold">
+                      <Phone className="w-4 h-4 mr-2" />
+                      +254 743 375 997
+                    </Button>
+                  </a>
+                  <a
+                    href="tel:+254720634890"
+                    className="block"
+                  >
+                    <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white h-10 text-sm font-semibold">
+                      <Phone className="w-4 h-4 mr-2" />
+                      +254 720 634 890
+                    </Button>
+                  </a>
+                  <a
+                    href="tel:+254703256218"
+                    className="block"
+                  >
+                    <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white h-10 text-sm font-semibold">
+                      <Phone className="w-4 h-4 mr-2" />
+                      +254 703 256 218
+                    </Button>
+                  </a>
+                </div>
               </div>
 
               {/* Footer Information */}
@@ -445,6 +465,18 @@ const Products = () => {
                   className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-hover transition-colors"
                 >
                   Call us: +254 743 375 997
+                </a>
+                <a
+                  href="tel:+254720634890"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-border rounded-lg font-medium hover:bg-muted transition-colors"
+                >
+                  Call us: +254 720 634 890
+                </a>
+                <a
+                  href="tel:+254703256218"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-border rounded-lg font-medium hover:bg-muted transition-colors"
+                >
+                  Call us: +254 703 256 218
                 </a>
                 <a
                   href="mailto:info@eastleighturfgrass.com"

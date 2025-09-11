@@ -121,9 +121,9 @@ const About = () => {
 
           {/* Story Section */}
           <div className="mb-20">
-            <div className="animate-fade-in mb-12">
+            <div className="animate-fade-in mb-12 text-center">
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-              <div className="space-y-4 text-muted-foreground max-w-4xl">
+              <div className="space-y-4 text-muted-foreground max-w-4xl mx-auto">
                 <p>
                   Founded in 2008 by James Mitchell, Eastleigh Turf Grass began as a small family business
                   with a simple mission: to provide beautiful, low-maintenance lawns that families could

@@ -45,15 +45,19 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-sm">
                 <MapPin className="w-4 h-4 text-accent flex-shrink-0" />
-                <span className="text-gray-300">Eastleigh, Hampshire, UK</span>
+                <span className="text-gray-300">1st Avenue Eastleigh, Max Shopping Complex</span>
               </div>
               <div className="flex items-center space-x-3 text-sm">
                 <Phone className="w-4 h-4 text-accent flex-shrink-0" />
-                <span className="text-gray-300">+44 123 456 7890</span>
+                <div className="text-gray-300">
+                  <div>+254 743 375 997</div>
+                  <div>+254 720 634 890</div>
+                  <div>+254 703 256 218</div>
+                </div>
               </div>
               <div className="flex items-center space-x-3 text-sm">
                 <Mail className="w-4 h-4 text-accent flex-shrink-0" />
-                <span className="text-gray-300">info@eastleighturf.co.uk</span>
+                <span className="text-gray-300">info@eastleighturfgrass.com</span>
               </div>
             </div>
           </div>
