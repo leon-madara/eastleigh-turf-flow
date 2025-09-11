@@ -1,0 +1,5 @@
+[33me146625[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m feat: Complete broker dashboard MVP with profile management
+[33m6847660[m[33m ([m[1;32mcopilot/vscode1757323792446[m[33m)[m Broker Dashboard: inquiry fixes, vertical list, remove status button; Profile tab MVP; theme section removed; types updated; small JSX fix
+[33m31ce88f[m Checkpoint from VS Code for coding agent session
+[33m212be2c[m Refine UI and functionality
+[33mffc3619[m Refactor header and add theme support
