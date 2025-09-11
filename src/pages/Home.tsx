@@ -27,7 +27,7 @@ const Home = () => {
       id: '1',
       name: 'Luxury Turf 30mm',
       price: 1300,
-      image: '/Products/VelvetGreen.png',
+      image: '/eastleigh-turf-flow/Products/VelvetGreen.png',
       description: 'Ultra-soft luxury turf perfect for high-end residential spaces',
       features: ['30mm pile height', 'UV resistant', '10-year warranty']
     },
@@ -35,7 +35,7 @@ const Home = () => {
       id: '2',
       name: 'Sports Turf 20mm',
       price: 1100,
-      image: '/Products/FlexTurf.png',
+      image: '/eastleigh-turf-flow/Products/FlexTurf.png',
       description: 'Durable and safe turf ideal for sports and playgrounds',
       features: ['20mm pile height', 'Enhanced durability', 'Weather resistant']
     },
@@ -43,7 +43,7 @@ const Home = () => {
       id: '3',
       name: 'Professional Grade 40mm',
       price: 1600,
-      image: '/Products/ProfessionalGrade.png',
+      image: '/eastleigh-turf-flow/Products/ProfessionalGrade.png',
       description: 'Professional-grade turf designed for sports applications',
       features: ['40mm pile height', 'Maximum durability', 'Championship quality']
     }
