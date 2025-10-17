@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BrokerLogin from '@/components/BrokerLogin';
 import BrokerDashboard from '@/components/BrokerDashboard';
+import { useAuth } from '@/components/AuthProvider';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -23,7 +24,7 @@ import { Link } from 'react-router-dom';
 const About = () => {
   const [cartCount, setCartCount] = useState(0);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isBrokerLoggedIn, setIsBrokerLoggedIn] = useState(false);
+  const { user, logout } = useAuth();
 
   const stats = [
     { icon: Users, label: 'Happy Customers', value: '1,500+', color: 'text-blue-600' },
@@ -79,9 +80,7 @@ const About = () => {
     }
   ];
 
-  if (isBrokerLoggedIn) {
-    return <BrokerDashboard onLogout={() => setIsBrokerLoggedIn(false)} />;
-  }
+  if (user) return <BrokerDashboard onLogout={logout} />;
 
   return (
     <div className="min-h-screen bg-background">
@@ -294,11 +293,7 @@ const About = () => {
 
       <Footer />
 
-      <BrokerLogin
-        isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
-        onLogin={() => setIsBrokerLoggedIn(true)}
-      />
+      <BrokerLogin isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </div>
   );
 };

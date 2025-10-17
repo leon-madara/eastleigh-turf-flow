@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BrokerLogin from '@/components/BrokerLogin';
 import BrokerDashboard from '@/components/BrokerDashboard';
+import { useAuth } from '@/components/AuthProvider';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,7 +25,7 @@ import { useToast } from '@/hooks/use-toast';
 const Contact = () => {
   const [cartCount, setCartCount] = useState(0);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isBrokerLoggedIn, setIsBrokerLoggedIn] = useState(false);
+  const { user, logout } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -109,9 +110,7 @@ const Contact = () => {
     '10-year warranty'
   ];
 
-  if (isBrokerLoggedIn) {
-    return <BrokerDashboard onLogout={() => setIsBrokerLoggedIn(false)} />;
-  }
+  if (user) return <BrokerDashboard onLogout={logout} />;
 
   return (
     <div className="min-h-screen bg-background">
@@ -434,11 +433,7 @@ const Contact = () => {
 
       <Footer />
 
-      <BrokerLogin
-        isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
-        onLogin={() => setIsBrokerLoggedIn(true)}
-      />
+      <BrokerLogin isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </div>
   );
 };

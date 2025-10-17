@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '@/components/ThemeProvider';
 import grassTextureBg from '@/assets/grass-texture-bg.jpg';
 import mainLogo from '@/assets/mainLogo.png';
+import { useAuth } from '@/components/AuthProvider';
 
 interface HeaderProps {
   cartCount: number;
@@ -16,6 +17,7 @@ const Header = ({ cartCount, onBrokerLogin }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { theme, setTheme } = useTheme();
+  const { user, logout } = useAuth();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 50, behavior: 'smooth' });
@@ -114,16 +116,29 @@ const Header = ({ cartCount, onBrokerLogin }: HeaderProps) => {
                 )}
               </Button>
 
-              {/* Login */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={onBrokerLogin}
-                className="hidden sm:flex items-center space-x-2"
-              >
-                <User className="w-4 h-4" />
-                <span>Login</span>
-              </Button>
+              {/* Auth: show user badge + logout or login */}
+              {user ? (
+                <div className="hidden sm:flex items-center gap-2">
+                  <Badge variant="secondary" className="text-xs">
+                    <User className="w-3 h-3 mr-1" />
+                    {user.phone || 'Broker'}
+                  </Badge>
+                  {user.role === 'ADMIN' && (
+                    <Link to="/admin" className="text-sm underline">Admin</Link>
+                  )}
+                  <Button variant="outline" size="sm" onClick={logout}>Logout</Button>
+                </div>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBrokerLogin}
+                  className="hidden sm:flex items-center space-x-2"
+                >
+                  <User className="w-4 h-4" />
+                  <span>Login</span>
+                </Button>
+              )}
 
               {/* Mobile Menu Toggle */}
               <Button
@@ -163,22 +178,41 @@ const Header = ({ cartCount, onBrokerLogin }: HeaderProps) => {
                 {item.name}
               </Link>
             ))}
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => {
-                onBrokerLogin();
-                setIsMobileMenuOpen(false);
-              }}
-              className={`flex items-center space-x-2 mt-4 ${isDashboard
-                ? 'border-black text-black hover:bg-black hover:text-white'
-                : 'border-white text-white hover:bg-white hover:text-black'
-                }`}
-              style={{ animationDelay: '0.4s' }}
-            >
-              <User className="w-4 h-4" />
-              <span>Login</span>
-            </Button>
+            {user ? (
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => {
+                  logout();
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center space-x-2 mt-4 ${isDashboard
+                  ? 'border-black text-black hover:bg-black hover:text-white'
+                  : 'border-white text-white hover:bg-white hover:text-black'
+                  }`}
+                style={{ animationDelay: '0.4s' }}
+              >
+                <User className="w-4 h-4" />
+                <span>Logout</span>
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => {
+                  onBrokerLogin();
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center space-x-2 mt-4 ${isDashboard
+                  ? 'border-black text-black hover:bg-black hover:text-white'
+                  : 'border-white text-white hover:bg-white hover:text-black'
+                  }`}
+                style={{ animationDelay: '0.4s' }}
+              >
+                <User className="w-4 h-4" />
+                <span>Login</span>
+              </Button>
+            )}
           </nav>
         </div>
       </div>
