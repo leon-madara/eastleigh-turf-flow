@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Edit, Tag, Trash2, Ruler, CheckCircle, MapPin, Phone } from 'lucide-react';
 import CartEditDropdown from '@/components/CartEditDropdown';
 import { useToast } from '@/hooks/use-toast';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface CartItem {
   id: string;
@@ -238,7 +239,8 @@ const Products = () => {
                   who will visit your location and provide{' '}
                   <span className="font-semibold text-green-700">accurate measurements</span>{' '}
                   at{' '}
-                  <span className="font-semibold text-green-700">absolutely no cost to you.</span>
+                  <span className="font-semibold text-green-700">absolutely no cost to you for{' '}
+                  <span className="font-bold text-blue-600">same day installation</span>.</span>
                 </p>
               </div>
 
@@ -262,7 +264,8 @@ const Products = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span className="text-gray-700 font-medium">Completely free service</span>
+                  <span className="text-gray-700 font-medium">Completely free service for{' '}
+                  <span className="font-bold text-blue-600">same day installation</span></span>
                 </div>
               </div>
 
@@ -308,7 +311,7 @@ const Products = () => {
                   <div className="flex items-center space-x-3">
                     <ShoppingCart className="w-5 h-5 text-accent" />
                     <div>
-                      <h3 className="font-semibold">Cart Summary</h3>
+                      <h3 className="font-semibold text-green-700 text-lg mb-1 text-center">Cart Summary</h3>
                       <p className="text-sm text-muted-foreground">
                         {cartItems.length} item{cartItems.length !== 1 ? 's' : ''} in cart
                       </p>
@@ -326,34 +329,65 @@ const Products = () => {
 
                 {/* Cart Items */}
                 <div className="space-y-3 mb-4">
-                  {cartItems.map((item, index) => (
-                    <div key={item.id} className="md:flex md:items-center md:justify-between p-3 bg-background rounded-lg border">
-                      <div className="flex items-center gap-3 md:flex-1">
-                        <Badge variant="outline" className="text-xs">#{index + 1}</Badge>
-                        <div className="md:flex md:items-center md:gap-4 md:flex-1">
-                          <h4 className="font-medium text-sm">{item.name}</h4>
-                          <p className="text-xs text-muted-foreground">
-                            {item.width}m × {item.length}m = {item.area.toFixed(1)}m²
-                          </p>
-                          <p className="text-sm font-semibold">KES {item.totalPrice.toLocaleString()}</p>
+                  <TooltipProvider>
+                    {cartItems.map((item, index) => (
+                      <div key={item.id} className="md:flex md:items-center md:justify-between p-3 bg-background rounded-lg border">
+                        <div className="flex items-center gap-3 md:flex-1">
+                          <Badge variant="outline" className="text-xs">#{index + 1}</Badge>
+                          <div className="md:flex md:items-center md:gap-4 md:flex-1">
+                            <h4 className="font-medium text-sm">{item.name}</h4>
+                            <p className="text-xs text-muted-foreground">
+                              {item.width}m × {item.length}m = {item.area.toFixed(1)}m²
+                            </p>
+                            <p className="text-sm font-semibold">KES {item.totalPrice.toLocaleString()}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2 md:mt-0">
+                          {/* Desktop: Icon buttons with tooltips */}
+                          <div className="hidden md:flex items-center gap-2">
+                            <CartEditDropdown
+                              item={item}
+                              onSave={handleEditCartItem}
+                              variant="icon"
+                              showTooltip={true}
+                            />
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="destructive"
+                                  size="sm"
+                                  onClick={() => handleRemoveFromCart(item.id)}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Delete Order</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </div>
+                          
+                          {/* Mobile: Text buttons */}
+                          <div className="flex flex-col gap-1 md:hidden">
+                            <CartEditDropdown
+                              item={item}
+                              onSave={handleEditCartItem}
+                              variant="text"
+                            />
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => handleRemoveFromCart(item.id)}
+                              className="text-xs h-8"
+                            >
+                              Delete Order
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 mt-2 md:mt-0">
-                        <CartEditDropdown
-                          item={item}
-                          onSave={handleEditCartItem}
-                        />
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => handleRemoveFromCart(item.id)}
-                          className="h-8 w-8 p-0"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </TooltipProvider>
                 </div>
 
                 {/* Discount Section */}

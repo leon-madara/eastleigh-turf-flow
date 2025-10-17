@@ -38,6 +38,7 @@ const Header = ({ cartCount, onBrokerLogin }: HeaderProps) => {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Products', path: '/products' },
+    { name: 'Our Work', path: '/our-work' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
