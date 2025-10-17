@@ -114,7 +114,7 @@ const Header = ({ cartCount, onBrokerLogin }: HeaderProps) => {
                 )}
               </Button>
 
-              {/* Broker Login */}
+              {/* Login */}
               <Button
                 variant="outline"
                 size="sm"
@@ -122,7 +122,7 @@ const Header = ({ cartCount, onBrokerLogin }: HeaderProps) => {
                 className="hidden sm:flex items-center space-x-2"
               >
                 <User className="w-4 h-4" />
-                <span>Broker Login</span>
+                <span>Login</span>
               </Button>
 
               {/* Mobile Menu Toggle */}
@@ -177,7 +177,7 @@ const Header = ({ cartCount, onBrokerLogin }: HeaderProps) => {
               style={{ animationDelay: '0.4s' }}
             >
               <User className="w-4 h-4" />
-              <span>Broker Login</span>
+              <span>Login</span>
             </Button>
           </nav>
         </div>

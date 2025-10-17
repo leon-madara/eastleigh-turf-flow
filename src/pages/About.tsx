@@ -60,7 +60,7 @@ const About = () => {
       name: 'James Mitchell',
       role: 'Founder & CEO',
       experience: '15+ years',
-      bio: 'James founded Eastleigh Turf Grass with a vision to transform outdoor spaces across Hampshire.',
+      bio: 'James founded Eastleigh Turf Grass with a vision to transform outdoor spaces across Nairobi and Kenya.',
       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'
     },
     {

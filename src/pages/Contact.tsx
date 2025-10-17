@@ -85,20 +85,6 @@ const Contact = () => {
       action: 'tel:+254743375997'
     },
     {
-      icon: Phone,
-      title: 'Phone',
-      details: '+254 720 634 890',
-      description: 'Mon-Fri: 8AM-6PM, Sat: 9AM-4PM',
-      action: 'tel:+254720634890'
-    },
-    {
-      icon: Phone,
-      title: 'Phone',
-      details: '+254 703 256 218',
-      description: 'Mon-Fri: 8AM-6PM, Sat: 9AM-4PM',
-      action: 'tel:+254703256218'
-    },
-    {
       icon: Mail,
       title: 'Email',
       details: 'info@eastleighturfgrass.com',

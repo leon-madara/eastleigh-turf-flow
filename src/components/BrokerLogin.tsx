@@ -29,16 +29,16 @@ const BrokerLogin = ({ isOpen, onClose, onLogin }: BrokerLoginProps) => {
 
     // Simulate API call delay
     setTimeout(() => {
-      if (credentials.username === 'BROKER' && credentials.password === '123') {
+      if (credentials.username === 'Admin01' && credentials.password === '28187510Lee') {
         toast({
           title: "Welcome back!",
-          description: "Successfully logged in to broker dashboard.",
+          description: "Successfully logged in to dashboard.",
         });
         onLogin();
         onClose();
         setCredentials({ username: '', password: '' });
       } else {
-        setError('Invalid credentials. Use username: BROKER, password: 123');
+        setError('Invalid credentials. Use username: Admin01, password: 28187510Lee');
       }
       setIsLoading(false);
     }, 1000);
@@ -57,7 +57,7 @@ const BrokerLogin = ({ isOpen, onClose, onLogin }: BrokerLoginProps) => {
           <DialogHeader className="p-6 pb-4">
             <DialogTitle className="flex items-center space-x-2 text-white">
               <User className="w-5 h-5" />
-              <span>Broker Login</span>
+              <span>Login</span>
             </DialogTitle>
           </DialogHeader>
         </div>
@@ -106,8 +106,8 @@ const BrokerLogin = ({ isOpen, onClose, onLogin }: BrokerLoginProps) => {
 
               <div className="bg-muted/50 p-3 rounded-lg text-sm text-muted-foreground">
                 <p><strong>Demo Credentials:</strong></p>
-                <p>Username: BROKER</p>
-                <p>Password: 123</p>
+                <p>Username: Admin01</p>
+                <p>Password: 28187510Lee</p>
               </div>
 
               <div className="flex space-x-3">
