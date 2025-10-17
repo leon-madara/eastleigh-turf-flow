@@ -104,11 +104,6 @@ const BrokerLogin = ({ isOpen, onClose, onLogin }: BrokerLoginProps) => {
                 </div>
               )}
 
-              <div className="bg-muted/50 p-3 rounded-lg text-sm text-muted-foreground">
-                <p><strong>Demo Credentials:</strong></p>
-                <p>Username: Admin01</p>
-                <p>Password: 28187510Lee</p>
-              </div>
 
               <div className="flex space-x-3">
                 <Button 
