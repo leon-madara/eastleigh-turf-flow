@@ -3,8 +3,3 @@ compatibility_date = "2025-10-17"
 
 [site]
 bucket = "./dist"
-entry-point = ""
-
-[[routes]]
-pattern = "/*"
-zone_name = "your-domain.com"
